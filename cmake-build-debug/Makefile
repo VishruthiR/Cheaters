@@ -150,6 +150,33 @@ HashMap.cpp.s:
 	$(MAKE) -f CMakeFiles/Cheaters.dir/build.make CMakeFiles/Cheaters.dir/HashMap.cpp.s
 .PHONY : HashMap.cpp.s
 
+TestConvert.o: TestConvert.cpp.o
+
+.PHONY : TestConvert.o
+
+# target to build an object file
+TestConvert.cpp.o:
+	$(MAKE) -f CMakeFiles/Cheaters.dir/build.make CMakeFiles/Cheaters.dir/TestConvert.cpp.o
+.PHONY : TestConvert.cpp.o
+
+TestConvert.i: TestConvert.cpp.i
+
+.PHONY : TestConvert.i
+
+# target to preprocess a source file
+TestConvert.cpp.i:
+	$(MAKE) -f CMakeFiles/Cheaters.dir/build.make CMakeFiles/Cheaters.dir/TestConvert.cpp.i
+.PHONY : TestConvert.cpp.i
+
+TestConvert.s: TestConvert.cpp.s
+
+.PHONY : TestConvert.s
+
+# target to generate assembly for a file
+TestConvert.cpp.s:
+	$(MAKE) -f CMakeFiles/Cheaters.dir/build.make CMakeFiles/Cheaters.dir/TestConvert.cpp.s
+.PHONY : TestConvert.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -189,6 +216,9 @@ help:
 	@echo "... HashMap.o"
 	@echo "... HashMap.i"
 	@echo "... HashMap.s"
+	@echo "... TestConvert.o"
+	@echo "... TestConvert.i"
+	@echo "... TestConvert.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

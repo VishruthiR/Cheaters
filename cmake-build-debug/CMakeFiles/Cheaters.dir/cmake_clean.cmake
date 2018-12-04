@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Cheaters.dir/main.cpp.o"
+  "CMakeFiles/Cheaters.dir/TestConvert.cpp.o"
   "CMakeFiles/Cheaters.dir/HashMap.cpp.o"
   "Cheaters.pdb"
   "Cheaters"
