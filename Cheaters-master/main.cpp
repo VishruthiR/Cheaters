@@ -8,7 +8,6 @@
 #include<queue>
 #include"HashMap.h"
 
-
 using namespace std;
 
 int main(){
@@ -46,6 +45,9 @@ int main(){
         for( int i = 0; i < nWordSequence.size() ; i++ ) {
             cout << nWordSequence[i] << endl;
         }
+        //EXPLAIN TO VISH
+        HashMap testMap((documentElements - nElements));
+        cout << testMap.hashKey(nWordSequence, testMap.getListSize()) << endl;
         nWordSequence.erase(nWordSequence.begin());
         nWordSequence.push_back(qpt.front());
         qpt.pop();
@@ -53,9 +55,9 @@ int main(){
         cout << endl;
     }
     //PrintTestQ
-    while(!qpt.empty()){
-        cout << qpt.front() << endl;
-        qpt.pop();
-    }
+    //while(!qpt.empty()){
+    //    cout << qpt.front() << endl;
+    //    qpt.pop();
+    //}
 }
 
