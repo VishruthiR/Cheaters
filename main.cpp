@@ -11,6 +11,27 @@
 using namespace std;
 
 int main(){
-    cout<<"HELLO WORLD!"<<endl;
-}
+    int nElements = 6;
+    queue<string> qpt;
+    ifstream inFile;
+    inFile.open("test.txt");
+    string s;
+    inFile >> s;
 
+    //-----------------------------------------------------------------
+    //LowerCase Function
+    //ErasePunc Function
+    //Makes Queue for document
+    while (inFile) {
+        transform(s.begin(), s.end(), s.begin(), ::tolower);
+        for (int i = 0; i < s.size(); i++) {
+            if (ispunct(s[i])) {
+                s.erase(i--, 1);
+                }
+            }
+        qpt.push(s);
+        inFile >> s;
+        }
+    //-----------------------------------------------------------------
+
+}
