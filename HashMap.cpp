@@ -7,15 +7,24 @@
 #include <string>
 #include <iostream>
 #include <queue>
-
+#include <math.h>
+#include <climits>
 using namespace std;
 
 int HashMap::hashKey(string chunk){
-    long chunkval = 0;
-    for(int i = 0; i < chunk.length(); i++){
-        chunkval += (int(chunk[i])) * (11^i);
+    long long chunkVal = 0;
+    long long chunkValtemp = 0;
+    long long chunkVal2 = 0;
+    for(int i = 0; i < chunk.length(); i++) {
+        if (chunkVal + long(chunk[i] * pow(3, i)) > 0) {
+            chunkVal += long(chunk[i] * pow(3, i)); // power function instead of 11^i... 11 gave me overflow so I am using 7
+        } else {
+            chunkVal %= LISTSIZE;
+            return (int(chunkVal));
+        }
     }
-    return ((int)(chunkval % LISTSIZE));
+    chunkVal %= LISTSIZE;
+    return (int(chunkVal));
 }
 
 void HashMap::insert(int key, int docIndex){
@@ -25,7 +34,7 @@ void HashMap::insert(int key, int docIndex){
     list[key] = insertNode;
 }
 
-void HashMap::mappingResult(int **result) {
+void HashMap::mappingResult(int result[][100]) {
     int i = 0;
     while(i < LISTSIZE){
         while(list[i] != NULL){
@@ -51,8 +60,8 @@ void HashMap::mapping(queue<string> qpt, int nElements, int docIndex) {
         qpt.pop();
     }
     while(!qpt.empty()) {
-        string chunk = NULL;
-        for (int i = 0; i < nWordSequence.size(); i++) {
+        string chunk = ""; //had to change this to "" instead of NULL
+        for (int i = 0; i < nElements; i++) { // changed this nElements instead of size of vector.. its always the same
             chunk += nWordSequence[i];
         }
         insert(hashKey(chunk),docIndex);

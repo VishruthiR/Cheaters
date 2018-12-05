@@ -12,6 +12,7 @@
 #include <queue>
 
 #define LISTSIZE 1000001
+#define HASHDIV 1000001
 
 using namespace std;
 
@@ -20,7 +21,7 @@ public:
     int hashKey(string chunk);
     void insert(int key, int docIndex);
     void mapping(queue<string> qpt, int nElements, int docIndex);
-    void mappingResult(int **results);
+    void mappingResult(int results[][100]);
 
 private:
 

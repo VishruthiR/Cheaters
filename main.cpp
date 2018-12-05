@@ -26,13 +26,11 @@ int main(int argc, char *argv[]){
     string dir = string("sm_doc_set");
     int numDoc = 0;
 
-
-
     vector<string> files = vector<string>();
     numDoc = getdir(dir,files);
     //Initializing array
     if(numDoc != 0){
-        int result[numDoc][numDoc];
+        int result[100][100];
         for(int i = 0 ; i < numDoc ; i++){
             for(int j = 0 ; j <numDoc ; j++){
                 result[i][j] = 0;
@@ -47,7 +45,7 @@ int main(int argc, char *argv[]){
             inFile >> s;
             //Sets up Queue
             while (inFile) {
-                transform(s.begin(), s.end(), s.begin(), ::tolower);
+                transform(s.begin(), s.end(), s.begin(), ::toupper);
                 for (int i = 0; i < s.size(); i++) {
                     if (ispunct(s[i])) {
                         s.erase(i--, 1);
@@ -57,8 +55,13 @@ int main(int argc, char *argv[]){
                 inFile >> s;
             }
             hashObject.mapping(qpt, nElements, docIndex);
-
-
+            hashObject.mappingResult(result);
+            for (int k = 0 ; k < numDoc ; k++){
+                for (int v = 0 ; v < numDoc ; v++){
+                    cout << result[k][v] << " ";
+                }
+                cout << endl;
+            }
         }
     }
 }
