@@ -84,12 +84,6 @@
 		<Unit filename="/Users/vishruthi/CLionProjects/Cheaters/HashMap.h">
 			<Option target="Cheaters"/>
 		</Unit>
-		<Unit filename="/Users/vishruthi/CLionProjects/Cheaters/TestConvert.cpp">
-			<Option target="Cheaters"/>
-		</Unit>
-		<Unit filename="/Users/vishruthi/CLionProjects/Cheaters/TestConvert.h">
-			<Option target="Cheaters"/>
-		</Unit>
 		<Unit filename="/Users/vishruthi/CLionProjects/Cheaters/main.cpp">
 			<Option target="Cheaters"/>
 		</Unit>

@@ -11,27 +11,24 @@
 #include <iostream>
 #include <queue>
 
-#define LISTSIZE 10000001
+#define LISTSIZE 1000001
 
 using namespace std;
 
 class HashMap {
 public:
-
-    int hashKey(string word);
+    int hashKey(string chunk);
     void insert(int key, int docIndex);
-    void mappingResult(int **result);
-    void mapping(queue<string>* qpt, int nElements, int docIndex);
+    void mapping(queue<string> qpt, int nElements, int docIndex);
+    void mappingResult(int **results);
 
 private:
 
     struct HashNode {
-        int key;
+        int docIndex;
         HashNode *next;
     };
-    HashNode* list[LISTSIZE] = {nullptr};
+    HashNode* list[LISTSIZE];
 };
-
-
 
 #endif //CHEATERS_HASHMAP_H

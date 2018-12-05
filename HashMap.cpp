@@ -8,8 +8,6 @@
 #include <iostream>
 #include <queue>
 
-#define LISTSIZE 10000001
-
 using namespace std;
 
 int HashMap::hashKey(string chunk){
@@ -22,7 +20,7 @@ int HashMap::hashKey(string chunk){
 
 void HashMap::insert(int key, int docIndex){
     HashNode *insertNode = new HashNode;
-    insertNode->key = docIndex;
+    insertNode->docIndex = docIndex;
     insertNode->next = list[key];
     list[key] = insertNode;
 }
@@ -36,7 +34,7 @@ void HashMap::mappingResult(int **result) {
                 list[i] = NULL;
             }
             else{
-                result[list[i]->key][(list[i]->next)->key] += 1;
+                result[list[i]->docIndex][(list[i]->next)->docIndex] += 1;
                 HashNode *temp = list[i]->next;
                 delete list[i];
                 list[i] = temp;
@@ -46,15 +44,14 @@ void HashMap::mappingResult(int **result) {
     }
 }
 
-void HashMap::mapping(queue<string>* qpt, int nElements, int docIndex) {
-    int counter = 0;
+void HashMap::mapping(queue<string> qpt, int nElements, int docIndex) {
     vector<string> nWordSequence;
     for (int i = 0; i < nElements; i++) {
         nWordSequence.push_back(qpt.front());
         qpt.pop();
     }
-    while(counter < (qpt.size() - nElements)) {
-        string chunk = "";
+    while(!qpt.empty()) {
+        string chunk = NULL;
         for (int i = 0; i < nWordSequence.size(); i++) {
             chunk += nWordSequence[i];
         }
@@ -62,7 +59,5 @@ void HashMap::mapping(queue<string>* qpt, int nElements, int docIndex) {
         nWordSequence.erase(nWordSequence.begin());
         nWordSequence.push_back(qpt.front());
         qpt.pop();
-        counter++;
     }
 }
-
