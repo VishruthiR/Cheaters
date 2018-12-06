@@ -33,7 +33,15 @@ int HashMap::hashKey(string chunk){
 }
 
 void HashMap::insert(int key, int docIndex){
+    if( docIndex == 233 ){
+        cout << docIndex;
+    }
     HashNode *insertNode = new HashNode;
+    if (list[key] != NULL){
+        if(list[key]->docIndex == docIndex) {
+            return;
+        }
+    }
     insertNode->docIndex = docIndex;
     insertNode->next = list[key];
     list[key] = insertNode;
@@ -41,21 +49,28 @@ void HashMap::insert(int key, int docIndex){
 
 void HashMap::mappingResult(int result[][100]) {
     int i = 0;
-    while(i < LISTSIZE){
-        while(list[i] != NULL){
-            if(list[i]->next == NULL){
+    HashNode *temp;
+    HashNode *temp2;
+    while (i < LISTSIZE) {
+        while (list[i] != NULL) {
+            if (list[i]->next == NULL) {
                 delete list[i];
                 list[i] = NULL;
-            }
-            else{
-                result[list[i]->docIndex][(list[i]->next)->docIndex] += 1;
-                HashNode *temp = list[i]->next;
+            } else {
+                temp = list[i];
+                temp2 = list[i]->next;
+                while (temp2 != NULL) {
+                    result[temp2->docIndex][temp->docIndex] += 1;
+                    temp2 = temp2->next;
+                }
+                temp = temp->next;
                 delete list[i];
                 list[i] = temp;
             }
         }
         i++;
     }
+
 }
 
 void HashMap::mapping(queue<string> qpt, int nElements, int docIndex) {
@@ -70,6 +85,7 @@ void HashMap::mapping(queue<string> qpt, int nElements, int docIndex) {
             chunk += nWordSequence[i];
         }
         insert(hashKey(chunk),docIndex);
+        //readjusting chunk of words
         nWordSequence.erase(nWordSequence.begin());
         nWordSequence.push_back(qpt.front());
         qpt.pop();

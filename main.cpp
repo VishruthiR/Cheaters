@@ -15,6 +15,7 @@
 using namespace std;
 
 int getdir(string dir, vector<string> &files);
+void displayResults(int results[][100], vector<string> fileNames, int numDocs, int threshold);
 
 int main(int argc, char *argv[]){
     //-----------------------------------------------------------------
@@ -23,6 +24,7 @@ int main(int argc, char *argv[]){
     HashMap hashObject;
     int nElements = 6;
     queue<string> qpt;
+    queue<string> empty;
     string dir = string("sm_doc_set");
     int numDoc = 0;
 
@@ -49,10 +51,12 @@ int main(int argc, char *argv[]){
                 for (int i = 0; i < s.size(); i++) {
                     if (ispunct(s[i])) {
                         s.erase(i--, 1);
+                        i++;
                     }
                     if ((int)s[i] > 90 || (int)s[i] < 65 ){
                         if((int)s[i] > 57 || (int)s[i] < 48 ) {
                             s.erase(i--, 1);
+                            i++;
                         }
                     }
                 }
@@ -60,16 +64,19 @@ int main(int argc, char *argv[]){
                 inFile >> s;
             }
             hashObject.mapping(qpt, nElements, docIndex);
-            hashObject.mappingResult(result);
-            for (int k = 0 ; k < numDoc ; k++){
-                for (int v = 0 ; v < numDoc ; v++){
-                    cout << result[k][v] << " ";
-                }
-                cout << endl;
-            }
+            qpt = decltype(qpt){};
         }
+        hashObject.mappingResult(result);
+        displayResults(result,files,numDoc,200);
     }
 }
+
+
+
+
+
+
+
 
 int getdir(string dir, vector<string> &files){
     int count = 0;
@@ -92,3 +99,27 @@ int getdir(string dir, vector<string> &files){
     closedir(dp);
     return count;
 }
+
+
+
+
+
+
+void displayResults(int results[][100], vector<string> fileNames, int numDocs, int threshold){
+    for(int i = 0; i < numDocs; i++){
+        for(int j = 0; j < numDocs; j++){
+            if((i < j) && (results[i][j] >= threshold)){
+                cout<<fileNames[i]<<" , "<<fileNames[j]<<" : "<<results[i][j]<<endl;
+            }
+        }
+    }
+}
+
+/*
+for (int k = 0 ; k < numDoc ; k++){
+for (int v = 0 ; v < numDoc ; v++){
+cout << result[k][v] << " ";
+}
+cout << endl;
+}
+ */
