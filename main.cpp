@@ -50,6 +50,11 @@ int main(int argc, char *argv[]){
                     if (ispunct(s[i])) {
                         s.erase(i--, 1);
                     }
+                    if ((int)s[i] > 90 || (int)s[i] < 65 ){
+                        if((int)s[i] > 57 || (int)s[i] < 48 ) {
+                            s.erase(i--, 1);
+                        }
+                    }
                 }
                 qpt.push(s);
                 inFile >> s;

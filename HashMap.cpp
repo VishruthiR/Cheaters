@@ -13,17 +13,22 @@ using namespace std;
 
 int HashMap::hashKey(string chunk){
     long long chunkVal = 0;
-    long long chunkValtemp = 0;
-    long long chunkVal2 = 0;
     for(int i = 0; i < chunk.length(); i++) {
         if (chunkVal + long(chunk[i] * pow(3, i)) > 0) {
             chunkVal += long(chunk[i] * pow(3, i)); // power function instead of 11^i... 11 gave me overflow so I am using 7
         } else {
             chunkVal %= LISTSIZE;
+            if(chunkVal == 0){
+                cout << "wait";
+            }
             return (int(chunkVal));
         }
     }
+
     chunkVal %= LISTSIZE;
+    if(chunkVal == 0){
+        cout << "wait";
+    }
     return (int(chunkVal));
 }
 
