@@ -14,22 +14,37 @@
 
 using namespace std;
 
+struct displayNode{
+    int matches;
+    string doc1;
+    string doc2;
+};
+
+
 int getdir(string dir, vector<string> &files);
 void displayResults(int results[][100], vector<string> fileNames, int numDocs, int threshold);
+bool operator < (const displayNode a, const displayNode b);
+
 
 int main(int argc, char *argv[]){
     //-----------------------------------------------------------------
     //Get arguments (directory path, chunk size, threshold)
-    //REMEMBER TO CHANGE*************
     HashMap hashObject;
-    int nElements = 6;
-    queue<string> qpt;
-    queue<string> empty;
-    string dir = string("sm_doc_set");
-    int numDoc = 0;
-
+    int nElements = 5;
+    int threshold = 0;;
+    int numDoc = 0;;
+    string dir = "";
+    
+    dir = argv[1];
+    char * randpoint = argv[2];
+    nElements = atoi (randpoint);
+    randpoint = argv[3];
+    threshold = atoi (randpoint);
+    
+    
     vector<string> files = vector<string>();
     numDoc = getdir(dir,files);
+    
     //Initializing array
     if(numDoc != 0){
         int result[100][100];
@@ -39,6 +54,7 @@ int main(int argc, char *argv[]){
             }
         }
         for(int docIndex = 0; docIndex < files.size(); docIndex++) {
+            queue<string> qpt;
             ifstream inFile;
             string fName = files[docIndex];
             fName = dir + "/" + fName;
@@ -64,10 +80,9 @@ int main(int argc, char *argv[]){
                 inFile >> s;
             }
             hashObject.mapping(qpt, nElements, docIndex);
-            qpt = decltype(qpt){};
         }
         hashObject.mappingResult(result);
-        displayResults(result,files,numDoc,200);
+        displayResults(result,files,numDoc,threshold);
     }
 }
 
@@ -86,7 +101,7 @@ int getdir(string dir, vector<string> &files){
         cout << "Error opening directory : " << dir << endl;
         return 0;
     }
-
+    
     while ((dirp = readdir(dp)) != NULL) {
         if(string(dirp->d_name) == "." || string(dirp->d_name) == ".."){
             continue;
@@ -106,20 +121,29 @@ int getdir(string dir, vector<string> &files){
 
 
 void displayResults(int results[][100], vector<string> fileNames, int numDocs, int threshold){
+    vector<displayNode> toPrint;
     for(int i = 0; i < numDocs; i++){
         for(int j = 0; j < numDocs; j++){
             if((i < j) && (results[i][j] >= threshold)){
-                cout<<fileNames[i]<<" , "<<fileNames[j]<<" : "<<results[i][j]<<endl;
+                displayNode newNode = {results[i][j], fileNames[i], fileNames[j]};
+                toPrint.push_back(newNode);
             }
         }
     }
+    sort(toPrint.begin(), toPrint.end());
+    for(int k = 0; k < toPrint.size(); k++){
+        cout<<toPrint[k].matches<<" : "<<toPrint[k].doc1<<" , "<<toPrint[k].doc2<<endl;
+    }
 }
 
+bool operator < (const displayNode a, const displayNode b){
+    return (a.matches > b.matches);
+}
 /*
-for (int k = 0 ; k < numDoc ; k++){
-for (int v = 0 ; v < numDoc ; v++){
-cout << result[k][v] << " ";
-}
-cout << endl;
-}
+ for (int k = 0 ; k < numDoc ; k++){
+ for (int v = 0 ; v < numDoc ; v++){
+ cout << result[k][v] << " ";
+ }
+ cout << endl;
+ }
  */
